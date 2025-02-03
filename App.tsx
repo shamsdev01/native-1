@@ -9,8 +9,8 @@ import { ShoppingListItem } from "./components/ShoppingListitme";
    return (
      <View style={styles.container}>
         <ShoppingListItem name="Cofee" />
-        <ShoppingListItem  name="Tea"/>
-        <ShoppingListItem name="Sugar " />
+        <ShoppingListItem  name="Tea" isCompleted />
+        <ShoppingListItem name="Sugar " isCompleted  />
      </View>
    );
   }
