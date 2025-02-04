@@ -1,5 +1,4 @@
-import { useRouter } from "expo-router";
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 
 export default function CounterScreen() {
     
@@ -19,5 +18,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 24,
+    color: "#333",
   },
 });

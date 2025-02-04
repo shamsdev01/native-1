@@ -18,8 +18,10 @@ export default function Layout () {
       />
       <Tabs.Screen
         name="counter"
+    
         options={{
-          title: "timer",
+          title: "Counter",
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="timer-outline" size={size} color={color} />
           ),
