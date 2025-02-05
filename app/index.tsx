@@ -6,6 +6,7 @@ import { useState } from "react";
 type ShoppingListItemType = {
   id: string;  
   name: string;
+  completedAtTimestamp?: number;
 }
 
  
@@ -22,9 +23,28 @@ type ShoppingListItemType = {
          ...shoppingList,
        ];
        setShoppingList(newShoppingList);
-       setValue(undefined);
+       setValue(" ");
      }
    };
+
+   const handleDelete = (id: string) => {
+      const newShoppingList = shoppingList.filter((item) => item.id !== id);
+      setShoppingList(newShoppingList);
+      
+   };
+
+   const handleToggleComplete = (id: string) => {
+      const newShoppingList = shoppingList.map((item) => {
+        if (item.id === id) {
+          return {
+            ...item,
+            completedAtTimestamp: item.completedAtTimestamp ? undefined : Date.now(),
+          };
+        }
+        return item;
+      });
+      setShoppingList(newShoppingList);
+   }
 
    return (
     <FlatList
@@ -48,7 +68,11 @@ type ShoppingListItemType = {
         />
     }
     stickyHeaderIndices={[0]}
-    renderItem={({ item }) => { return<ShoppingListItem name={item.name} />}}
+    renderItem={({ item }) => { return<ShoppingListItem name={item.name} 
+    onDelete ={() => handleDelete(item.id) } 
+    onToggleComplete={() => handleToggleComplete(item.id) }
+    isCompleted={Boolean(item.completedAtTimestamp)}
+    />}}
 
     />
    );
