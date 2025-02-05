@@ -53,7 +53,7 @@ export function ShoppingListItem({ name, isCompleted,onDelete, onToggleComplete 
 
 
             <TouchableOpacity onPress={handleDelete}>
-         <AntDesign name="closecircle" size={24} 
+         <AntDesign name="delete" size={24} 
          color={isCompleted ? theme.colorGrey : theme.colorRed } />
          </TouchableOpacity>
            </Pressable>
