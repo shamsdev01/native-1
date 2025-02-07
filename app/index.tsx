@@ -1,7 +1,19 @@
-import { FlatList, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { FlatList, 
+  ScrollView, 
+  StyleSheet, 
+  Text, 
+  TextInput, 
+  View, 
+  LayoutAnimation,
+} from "react-native";
 import { ShoppingListItem } from "../components/ShoppingListItem";
 import { theme } from "../theme";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getFromStorage, saveToStorage } from "../utils/storage";
+
+
+const storageKey = "shopping-List";
+
 
 type ShoppingListItemType = {
   id: string;  
@@ -16,6 +28,17 @@ type ShoppingListItemType = {
 
     const [shoppingList, setShoppingList] = useState<ShoppingListItemType[]>([]);
     const [value, setValue] = useState<string>();
+
+    useEffect(() => {
+      const fetechInitial = async () => {
+        const data = await getFromStorage(storageKey);
+        if (data) {
+          LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+          setShoppingList(data);
+        }
+      }
+      fetechInitial();
+    }, []);
  
    const handleSubmit = () => {
      if (value) { 
@@ -24,14 +47,18 @@ type ShoppingListItemType = {
           lastUpdatedTimestamp: Date.now() },
          ...shoppingList,
        ];
+       LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut); 
        setShoppingList(newShoppingList);
+       saveToStorage(storageKey, newShoppingList);
        setValue(" ");
      }
    };
 
    const handleDelete = (id: string) => {
       const newShoppingList = shoppingList.filter((item) => item.id !== id);
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
       setShoppingList(newShoppingList);
+      saveToStorage(storageKey, newShoppingList);
       
    };
 
@@ -46,9 +73,11 @@ type ShoppingListItemType = {
         }
         return item;
       });
+      saveToStorage(storageKey, newShoppingList);  
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
       setShoppingList(newShoppingList);
    }
-
+ 
    return (
     <FlatList
     data={orderShoppingList (shoppingList)}
