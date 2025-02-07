@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     paddingBottom: 24,
   },
   textInput: {
-    borderColor: theme.colorLihgtGrey,
+    // borderColor: theme.colorLihgtGrey,
     borderWidth: 2,
     padding: 12,
     fontSize: 18,
